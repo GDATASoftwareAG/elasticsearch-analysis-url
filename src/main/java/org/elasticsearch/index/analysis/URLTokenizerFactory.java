@@ -6,7 +6,6 @@ import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.url.URLTokenizer;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,11 +24,10 @@ public class URLTokenizerFactory extends AbstractTokenizerFactory {
 
 
     public URLTokenizerFactory(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
-        super(indexSettings, name, settings);
-
-        String[] parts = settings.getAsArray("part");
-        if (parts != null && parts.length > 0) {
-            this.parts = Arrays.stream(parts)
+        super(indexSettings, settings, name);
+        List<String> parts = settings.getAsList("part");
+        if (parts != null && parts.size() > 0) {
+            this.parts = parts.stream()
                     .map(URLPart::fromString)
                     .collect(Collectors.toList());
         }
