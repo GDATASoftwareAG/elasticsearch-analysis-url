@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -196,6 +197,7 @@ public final class URLTokenFilter extends TokenFilter {
             offset = tokenizer.getAttribute(OffsetAttribute.class);
             tokens.add(new Token(term, part, offset.startOffset(), offset.endOffset()));
         }
+        tokens.sort(Comparator.comparingInt(Token::getStart));
         return tokens;
     }
 

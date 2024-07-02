@@ -27,7 +27,6 @@ import static org.hamcrest.core.IsCollectionContaining.hasItem;
  * Joe Linn
  * 8/1/2015
  */
-@Ignore
 public class URLTokenizerIntegrationTest extends URLAnalysisTestCase {
     @Test
     public void testAnalyze() {
