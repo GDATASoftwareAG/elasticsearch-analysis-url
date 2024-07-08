@@ -1,10 +1,10 @@
 package org.elasticsearch.index.analysis.url;
 
+import org.apache.lucene.search.TotalHits;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeAction;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHits;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.hasSize;
  * Joe Linn
  * 1/17/2015
  */
-@Ignore
 public class URLTokenFilterIntegrationTest extends URLAnalysisTestCase {
 
     @Test
@@ -65,7 +64,7 @@ public class URLTokenFilterIntegrationTest extends URLAnalysisTestCase {
                 .setQuery(QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery("http_malformed.port")))
                 .get()
                 .getHits();
-        assertEquals("found a doc missing http_malformed.port", 1, hits.getTotalHits());
+        assertEquals("found a doc missing http_malformed.port", new TotalHits(1, TotalHits.Relation.EQUAL_TO), hits.getTotalHits());
     }
 
 
@@ -90,7 +89,7 @@ public class URLTokenFilterIntegrationTest extends URLAnalysisTestCase {
         refresh();
 
         SearchHits hits = client().prepareSearch(INDEX).setQuery(QueryBuilders.matchAllQuery()).get().getHits();
-        assertEquals("both docs indexed", 2, hits.getTotalHits());
+        assertEquals("both docs indexed", new TotalHits(2, TotalHits.Relation.EQUAL_TO), hits.getTotalHits());
     }
 
     private void assertURLAnalyzesTo(String url, String analyzer, String expected) {

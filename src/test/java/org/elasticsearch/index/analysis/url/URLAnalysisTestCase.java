@@ -1,6 +1,10 @@
 package org.elasticsearch.index.analysis.url;
 
+import org.apache.lucene.analysis.core.WhitespaceTokenizer;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeAction;
+import org.elasticsearch.index.analysis.*;
+import org.elasticsearch.indices.analysis.AnalysisModule;
+import org.elasticsearch.plugins.AnalysisPlugin;
 import org.elasticsearch.xcontent.XContentType;
 import org.elasticsearch.plugin.analysis.AnalysisURLPlugin;
 import org.elasticsearch.plugins.Plugin;
@@ -8,9 +12,9 @@ import org.elasticsearch.test.ESIntegTestCase;
 import org.elasticsearch.test.StreamsUtils;
 import org.junit.Before;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
+import static java.util.Collections.singletonMap;
 
 /**
  * Joe Linn
@@ -23,7 +27,7 @@ public abstract class URLAnalysisTestCase extends ESIntegTestCase {
 
     @Override
     protected Collection<Class<? extends Plugin>> nodePlugins() {
-        return Collections.singletonList(AnalysisURLPlugin.class);
+        return Arrays.asList(AnalysisURLPlugin.class, WhitespaceTokenizerPlugin.class);
     }
 
     /**
@@ -43,4 +47,13 @@ public abstract class URLAnalysisTestCase extends ESIntegTestCase {
     protected List<AnalyzeAction.AnalyzeToken> analyzeURL(String url, String analyzer) {
         return client().admin().indices().prepareAnalyze(INDEX, url).setAnalyzer(analyzer).get().getTokens();
     }
+
+    public static class WhitespaceTokenizerPlugin extends Plugin implements AnalysisPlugin {
+        @Override
+        public Map<String, AnalysisModule.AnalysisProvider<TokenizerFactory>> getTokenizers() {
+            return singletonMap("whitespace",
+                    PreConfiguredTokenizer.singleton("whitespace", WhitespaceTokenizer::new));
+        }
+    }
+
 }

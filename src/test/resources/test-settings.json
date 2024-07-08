@@ -80,36 +80,42 @@
                 "filter": [
                     "url_protocol"
                 ],
+                "type": "custom",
                 "tokenizer": "whitespace"
             },
             "url_host": {
                 "filter": [
                     "url_host"
                 ],
+                "type": "custom",
                 "tokenizer": "whitespace"
             },
             "url_port": {
                 "filter": [
                     "url_port"
                 ],
+                "type": "custom",
                 "tokenizer": "whitespace"
             },
             "url_query": {
                 "filter": [
                     "url_query"
                 ],
+                "type": "custom",
                 "tokenizer": "whitespace"
             },
             "url_port_malformed": {
                 "filter": [
                     "url_port_malformed"
                 ],
+                "type": "custom",
                 "tokenizer": "whitespace"
             },
             "url_host_passthrough": {
                 "filter": [
                     "url_host_passthrough"
                 ],
+                "type": "custom",
                 "tokenizer": "whitespace"
             },
             "tokenizer_url_protocol": {

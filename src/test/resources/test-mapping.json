@@ -1,50 +1,47 @@
 {
     "properties": {
         "url": {
-            "type": "string",
+            "type": "text",
             "fields": {
                 "url": {
-                    "type": "string",
-                    "index": "not_analyzed"
+                    "type": "keyword"
                 },
                 "port": {
-                    "type": "string",
+                    "type": "text",
                     "analyzer": "url_port"
                 }
             }
         },
         "url_tokenized": {
-            "type": "string",
+            "type": "text",
             "fields": {
                 "url_tokenized": {
-                    "type": "string",
-                    "index": "not_analyzed"
+                    "type": "keyword"
                 },
                 "protocol": {
-                    "type": "string",
+                    "type": "text",
                     "analyzer": "tokenizer_url_protocol"
                 }
             }
         },
         "url_malformed": {
-            "type": "string",
+            "type": "text",
             "fields": {
                 "url": {
-                    "type": "string",
-                    "index": "not_analyzed"
+                    "type": "keyword"
                 },
                 "port": {
-                    "type": "string",
+                    "type": "text",
                     "analyzer": "url_port_malformed"
                 }
             }
         },
         "url_highlight_test": {
-            "type": "string",
+            "type": "text",
             "analyzer": "url_highlight_test"
         },
         "bulk_indexing_test": {
-            "type": "string",
+            "type": "text",
             "analyzer": "bulk_indexing_test"
         }
     }

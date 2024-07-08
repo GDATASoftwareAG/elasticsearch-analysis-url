@@ -1,13 +1,12 @@
 package org.elasticsearch.plugin.analysis;
 
-import org.elasticsearch.index.analysis.TokenFilterFactory;
-import org.elasticsearch.index.analysis.TokenizerFactory;
-import org.elasticsearch.index.analysis.URLTokenFilterFactory;
-import org.elasticsearch.index.analysis.URLTokenizerFactory;
+import org.apache.lucene.analysis.core.WhitespaceTokenizer;
+import org.elasticsearch.index.analysis.*;
 import org.elasticsearch.indices.analysis.AnalysisModule;
 import org.elasticsearch.plugins.AnalysisPlugin;
 import org.elasticsearch.plugins.Plugin;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Collections.singletonMap;

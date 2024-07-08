@@ -185,7 +185,9 @@ public final class URLTokenizer extends Tokenizer {
                 tokens.addAll(tokenize(url, urlPart));
             }
             tokens.addAll(tokenizeSpecial(url));
-            return Lists.newArrayList(tokens);
+            List<Token> tokensList = Lists.newArrayList(tokens);
+            tokensList.sort(Comparator.comparingInt(Token::getStart));
+            return tokensList;
         } catch (MalformedURLException e) {
             if (allowMalformed) {
                 if (tokenizeMalformed && parts != null && !parts.isEmpty()) {
